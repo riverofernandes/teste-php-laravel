@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ImportController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::prefix('/import')->name('import.')->group(function () {
+    Route::get('/', [ImportController::class, 'index'])->name('index');
+    Route::post('/start', [ImportController::class, 'start'])->name('start');
+    Route::get('/edit/{document}', [ImportController::class, 'edit'])->name('edit');
+    Route::patch('/update/{document}', [ImportController::class, 'update'])->name('update');
+    Route::delete('/delete/{document}', [ImportController::class, 'delete'])->name('delete');
 });
